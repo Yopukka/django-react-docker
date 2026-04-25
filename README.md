@@ -21,8 +21,8 @@ A full stack e-commerce application built with **Django REST Framework** and **R
 - Resend verification with 2-minute cooldown
 
 ### Role-Based Access
-- **Manager** — access to admin dashboard with inventory and order management
-- **Landlord / Realtor / Tenant** — standard user access to the store
+- **Admin** — access to admin dashboard with inventory and order management
+- **User** — standard user access to the store
 
 ### Store & Shopping Cart
 - Product listing with **category filters** and **keyword search**
