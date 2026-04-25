@@ -1,0 +1,32 @@
+
+
+services:
+
+  backend:
+    build: ./backend
+    container_name: django_carrito
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./backend:/app
+      - ./backend/media:/app/media
+    env_file:
+      - ./backend/.env
+    command: python manage.py runserver 0.0.0.0:8000
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+  frontend:
+    build: ./frontend/e2l    
+    container_name: react_carrito
+    ports:
+      - "5174:5174"
+    volumes:
+      - ./frontend/e2l:/app
+      - /app/node_modules
+    env_file:
+      - ./frontend/e2l/.env.docker
+    stdin_open: true
+    tty: true
+    command: npm run dev

@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+
+/*Clase reutulizable para los inputs*/
+.input{
+    @apply  border-b border-gray-300 bg-transparent p-2 outline-none focus:border-gray-700 transition;
+}
