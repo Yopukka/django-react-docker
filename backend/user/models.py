@@ -83,7 +83,7 @@ class CustomUserManager(BaseUserManager):
         #Intentamos asignar el rol del admin al super usuario
         #Si no exixte se deja en none para no bloquear la creacion del superuser
         try:
-            rol_admin = Rol.objects.get(name=Rol.MANAGER)
+            rol_admin = Rol.objects.get(name=Rol.ADMIN)
         except Rol.DoesNotExist:
             rol_admin = None
 

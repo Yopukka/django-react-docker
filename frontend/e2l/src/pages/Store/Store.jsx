@@ -91,6 +91,13 @@ function Store() {
                         My Orders
                     </button>
 
+                    <button
+                    onClick={() => navigate("/admin")}
+                    className="text-sm text-gray-500 hover:text-black transition"
+                    >
+                        ← Admin
+                    </button>
+
                     {/* Botón carrito */}
                     <button
                         onClick={openCart}

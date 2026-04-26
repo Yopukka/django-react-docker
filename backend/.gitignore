@@ -6,3 +6,5 @@ media/
 venv/
 ven/
 source/
+
+.DS_Store

@@ -3,16 +3,13 @@ from django.db import models
 # Create your models here.
 class Rol(models.Model):
 
-    MANAGER = 'manager'
-    LANDLORD = 'landlord'
-    REALTOR = 'realtor'
-    TENANT = 'tenant'
+    ADMIN = 'admin'
+    USER = 'user'
 
     ROLE_CHOICES = [
-        (MANAGER, 'manager'),
-        (LANDLORD, 'landlord'),
-        (REALTOR, 'realtor'),
-        (TENANT, 'tenant'),
+        (ADMIN, 'admin'),
+        (USER, 'user'),
+        
     ]
 
 

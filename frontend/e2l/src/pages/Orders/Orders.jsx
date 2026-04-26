@@ -45,6 +45,12 @@ function Orders(){
                 >
                     ← Back to Store
                 </button>
+                <button
+                    onClick={() => navigate("/admin")}
+                    className="text-sm text-gray-500 hover:text-black transition"
+                >
+                    ← Admin
+                </button>
             </nav>
 
             <div className="max-w-4xl mx-auto px-6 py-8">

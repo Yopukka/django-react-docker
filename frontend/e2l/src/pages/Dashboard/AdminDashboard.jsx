@@ -83,13 +83,13 @@ function AdminDashboard(){
                 </div>
 
                 {/* ── Productos con poco stock ── */}
-                {dashboard.low_stock_products.length > 0 && (
+                {(dashboard.low_stock_products || []).length > 0 && (
                     <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
                         <div className="px-6 py-4 border-b border-gray-100">
                             <h2 className="font-semibold">⚠️ Low Stock Products</h2>
                         </div>
                         <div className="divide-y divide-gray-50">
-                            {dashboard.low_stock_products.map((product) => (
+                            {(dashboard.low_stock_products || []).map((product) => (
                                 <div key={product.id} className="flex items-center justify-between px-6 py-3">
                                     <div>
                                         <p className="text-sm font-medium">{product.name}</p>
@@ -114,7 +114,7 @@ function AdminDashboard(){
                         <h2 className="font-semibold">Recent Orders</h2>
                     </div>
                     <div className="divide-y divide-gray-50">
-                        {dashboard.recent_orders.map((order) => (
+                        {(dashboard.recent_orders || []).map((order) => (
                             <div key={order.id} className="flex items-center justify-between px-6 py-3">
                                 <div>
                                     <p className="text-sm font-medium">Order #{order.id}</p>

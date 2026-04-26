@@ -10,7 +10,7 @@ from django.db import migrations
 def create_roles(apps, schema_editor):
     Rol = apps.get_model('rol','Rol')
 
-    roles = ['manager','landlord','realtor','tenant']
+    roles = ['admin','user']
 
     for role in roles:
         Rol.objects.get_or_create(name=role)

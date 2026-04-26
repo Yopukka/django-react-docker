@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action 
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated,IsAdminUser, AllowAny
+from rest_framework.permissions import BasePermission,IsAuthenticated,IsAdminUser, AllowAny
 from django.shortcuts import get_object_or_404
 
 from store.models import Category, Product, Cart, CartItem, Order, OrderItem
@@ -224,14 +224,24 @@ class OrderViewSet(viewsets.GenericViewSet):
     
 
 
+##Permiso personalizado 
+class IsAdminRole(BasePermission):
+    def has_permisson(self, request, view):
+        return bool(
+            request.user and
+            request.user.is_authenticated and
+            request.user.rol and
+            request.user.rol.name == 'admin'
+        )
+
 class AdminDashboardViewSet(viewsets.GenericViewSet):
     """Dashnoar para admin"""
 
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminRole]
 
 
     #Get /store/admin/dashboard
-    @action(detail=False, methods=['get'], url_path='dashboar')
+    @action(detail=False, methods=['get'], url_path='dashboard')
     def dashboard(self,request):
 
         #Resumen de los productos
@@ -271,10 +281,10 @@ class AdminDashboardViewSet(viewsets.GenericViewSet):
                 'out_of_stock': out_of_stock,
                 'low_stock':low_stock,
                 'total_orders': total_orders,
-                'pending_order': pending_orders
+                'pending_orders': pending_orders
             },
             'low_stock_products': low_stock_products,
-            'recents_order': recent_orders_data
+            'recents_orders': recent_orders_data
         })
     
     @action(detail=False, methods=['patch'], url_path='orders/(?P<order_id>[^/.]+)/status')

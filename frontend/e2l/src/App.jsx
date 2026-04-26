@@ -105,7 +105,7 @@ function App() {
         />
 
         <Route
-        path="/store"
+        path="/admin"
         element = {
           <PrivateRoute>
             <AdminDashboard/>
