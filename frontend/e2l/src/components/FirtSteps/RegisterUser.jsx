@@ -84,14 +84,6 @@ function RegisterUser() {
         try {
             const { confirmPassword, ...dataToSend } = form;
 
-            if (rol === ROL.REALTOR) {
-                delete dataToSend.company;
-            }
-
-            if (rol === ROL.LANDLORD || rol === ROL.TENANT) {
-                delete dataToSend.brokerage;
-            }
-
             await registerUser({
                 ...dataToSend,
                 rol
@@ -223,24 +215,6 @@ function RegisterUser() {
                         </div>
                     </div>
 
-                    {/* Dynamic */}
-                    {(rol === ROL.LANDLORD || rol === ROL.TENANT) && (
-                        <input
-                            name="company"
-                            placeholder="Company"
-                            onChange={handleChange}
-                            className="border border-gray-300 rounded-lg px-4 py-3"
-                        />
-                    )}
-
-                    {rol === ROL.REALTOR && (
-                        <input
-                            name="brokerage"
-                            placeholder="Brokerage"
-                            onChange={handleChange}
-                            className="border border-gray-300 rounded-lg px-4 py-3"
-                        />
-                    )}
 
                     <input
                         name="phone"

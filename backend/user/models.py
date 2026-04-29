@@ -22,9 +22,9 @@ import uuid
 
 
 
-#MANAGER  controla como se crean los usuarios
+#Admin  controla como se crean los usuarios
 #Manager personalizado para customUser se requiere admin cuando se utiliza abstracBaseUser
-#Vaidaciones propias
+#Validaciones propias
 class CustomUserManager(BaseUserManager):
 
     #Crea y Guarda un usuario normal en la db
@@ -51,7 +51,7 @@ class CustomUserManager(BaseUserManager):
         email = self.normalize_email(email)
 
         #Self.model hace referencia a CustomUser
-        #Creamos la instancio pero sin guardar en la db
+        #Creamos la instancia pero sin guardar en la db
         user = self.model(
             email=email,
             **extra_fields
@@ -118,7 +118,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     notshow = models.BooleanField(default=False)
 
-    # 🔥 VERIFICATION SYSTEM
+    #VERIFICATION SYSTEM
     verification_token = models.UUIDField(default=uuid.uuid4, editable=False,null =True)
     verification_sent_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
@@ -146,24 +146,23 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return f"{self.first_name} {self.last_name}"
 
     def regenerate_verification_token(self):
-        """Regenera token para resend verification email"""
+        #Regenera token par el reenvio del email
         self.verification_token = uuid.uuid4()
         self.verification_sent_at = timezone.now()
         self.save(update_fields=["verification_token", "verification_sent_at"])
 
     def generate_reset_token(self):
-        """Genera un token unico para el reset"""
-        """uuid para id aleatorio"""
+        #Genera un token unico para el reset
+        #uuid para id aleatorio
         self.reset_token = uuid.uuid4()
         self.reset_sent_at = timezone.now()
         self.save(update_fields = ["reset_token", "reset_sent_at"])
 
     def clear_reset_token(self):
-        """
-        Limpia el token después de usarlo.
-        Esto es importante: si alguien interceptó el link,
-        ya no podrá usarlo una segunda vez.
-        """
+        #Limpia el token después de usarlo.
+        #si alguien interceptó el link,
+        #ya no podrá usarlo una segunda vez.
+
         self.reset_token = None
         self.reset_sent_at = None
         self.save(update_fields=["reset_token", "reset_sent_at"])

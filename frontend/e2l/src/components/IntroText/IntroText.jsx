@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getMe } from "../../api/user";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/api";
+import AdminText from "./AdminText";
+import UserText from "./UserText";
 
 function IntroText() {
     const [user, setUser] = useState(null);
@@ -86,38 +88,9 @@ function IntroText() {
                 </p>
 
                 {/* Texto según rol */}
-                {isAdmin ? (
-                    <div className="space-y-4 text-gray-600 text-sm leading-relaxed">
-                        <p>
-                            Welcome to the <strong>ShopAuth Admin Panel</strong>. From here you can manage everything about your store.
-                        </p>
-                        <ul className="space-y-2 list-none">
-                            <li>📦 Monitor product inventory and stock levels</li>
-                            <li>🛒 Review and manage customer orders</li>
-                            <li>✅ Update order status in real time</li>
-                            <li>⚠️ Get alerts for low stock products</li>
-                        </ul>
-                        <p>
-                            Head to your <strong>Dashboard</strong> to get started.
-                        </p>
-                    </div>
-                ) : (
-                    <div className="space-y-4 text-gray-600 text-sm leading-relaxed">
-                        <p>
-                            Welcome to <strong>ShopAuth</strong>. Discover our catalog and start shopping today.
-                        </p>
-                        <ul className="space-y-2 list-none">
-                            <li>🔍 Browse products by category or search</li>
-                            <li>🛒 Add items to your cart and checkout easily</li>
-                            <li>📋 Track your order history and status</li>
-                            <li>🔒 Your account is secure and verified</li>
-                        </ul>
-                        <p>
-                            Head to the <strong>Store</strong> to start shopping.
-                        </p>
-                    </div>
-                )}
-
+                {isAdmin ? <AdminText user = {user} /> : <UserText user = {user}/>} 
+                    
+                
                 {/* Botones */}
                 <div className="mt-10 space-y-3">
                     <button
