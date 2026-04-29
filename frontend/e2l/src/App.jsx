@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import RolSelector from "./components/FirtSteps/IndexRegister";
 import RegisterUser from "./components/FirtSteps/RegisterUser";
@@ -7,12 +7,24 @@ import IntroText from "./components/IntroText/IntroText";
 import PrivateRoute from "./components/FirtSteps/PrivateRoute";
 import IndexButton from "./components/Index/IndexButton";
 import VerifyEmail from "./components/FirtSteps/verifyEmail";
-import CheckEmail from "./components/FirtSteps/CheckEmail"; 
+import CheckEmail from "./components/FirtSteps/CheckEmail";
 import ForgotPassword from "./components/FirtSteps/ForgotPassword";
 import ResetPassword from "./components/FirtSteps/ResetPassword";
 import Store from "./pages/Store/Store"
 import Orders from "./pages/Orders/Orders"
 import AdminDashboard from "./pages/Dashboard/AdminDashboard"
+import Navbar from "./components/Navbar/Navbar";
+import CartSidebar from "./components/Store/CartSidebar";
+
+const PUBLIC_PATHS = ["/", "/register", "/login", "/check-email", "/forgot-password", "/introtext"];
+
+function NavbarWrapper() {
+    const { pathname } = useLocation();
+    const hide = PUBLIC_PATHS.includes(pathname) ||
+                 pathname.startsWith("/verify-email/") ||
+                 pathname.startsWith("/Reset-password/");
+    return hide ? null : <Navbar />;
+}
 
 function Placeholder({ title }) {
   return (
@@ -25,6 +37,8 @@ function Placeholder({ title }) {
 function App() {
   return (
     <BrowserRouter>
+      <NavbarWrapper />
+      <CartSidebar />
       <Routes>
 
         {/* Públicas */}

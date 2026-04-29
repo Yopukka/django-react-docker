@@ -14,6 +14,7 @@ from django.db import transaction
 from datetime import timedelta
 from django.utils import timezone
 from django.conf import settings
+from user.emails import verification_email_html
 
 
 
@@ -153,8 +154,9 @@ class UserSerializer(serializers.ModelSerializer):
             def send_verification_email():
                 try:
                     send_mail(
-                        subject="Activate your E2L account",
-                        message=f"Activate your account:\n{verification_link}",
+                        subject="Activate your Sho - ping account",
+                        message=f"Activate your account: {verification_link}",
+                        html_message=verification_email_html(user.first_name, verification_link),
                         from_email=settings.DEFAULT_FROM_EMAIL,
                         recipient_list=[user.email],
                         fail_silently=False

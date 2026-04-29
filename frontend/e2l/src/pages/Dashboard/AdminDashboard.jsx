@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { getAdminDashboard, updateOrderStatus } from "../../services/storeService";
-import { useNavigate } from "react-router-dom";
 
 function AdminDashboard(){
 
     const [dashboard, setDashboard] = useState(null);
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
 
     const statuStyles = {
         pendign: "bg-yellow-50 text-yellow-700",
@@ -51,18 +49,6 @@ function AdminDashboard(){
 
     return (
         <div className="min-h-screen bg-gray-50">
-
-            {/* ── Navbar ── */}
-            <nav className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-40">
-                <h1 className="text-xl font-bold">Admin Dashboard</h1>
-                <button
-                    onClick={() => navigate("/store")}
-                    className="text-sm text-gray-500 hover:text-black transition"
-                >
-                    Go to Store →
-                </button>
-            </nav>
-
             <div className="max-w-6xl mx-auto px-6 py-8 space-y-8">
 
                 {/* ── Cards de resumen ── */}

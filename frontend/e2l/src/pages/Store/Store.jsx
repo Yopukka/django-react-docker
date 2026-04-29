@@ -1,74 +1,47 @@
 import { useState, useEffect } from "react";
 import { getProducts, getCategories } from "../../services/storeService";
-import CartSidebar from "../../components/Store/CartSidebar";
 import ProductCart from "../../components/Store/ProductCart";
-import { useCart } from "../../context/CartContext";
-import { useNavigate } from "react-router-dom";
-
 
 function Store() {
 
-    // Estado de prodcutos y categorias
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
-    const navigate = useNavigate();
-
-
-    //filtros activos
     const [selectedCategory, setSelectedCategory] = useState("");
     const [search, setSearch] = useState("");
     const [searchInput, setSearchInput] = useState("");
-
-
-    //Estado carga
     const [loading, setLoading] = useState(true);
 
-    //carrito
-    const { cart, openCart } = useCart();
-
-
-    //Carga producto cuando cambia los filtros
     useEffect(() => {
         fetchProducts();
     }, [selectedCategory, search]);
 
-
-    //Cargar categorias una vez
     useEffect(() => {
         fetchCategories();
     }, []);
 
     const fetchProducts = async () => {
         setLoading(true);
-        try{
-            const data = await getProducts({
-                category: selectedCategory,
-                search: search
-            });
+        try {
+            const data = await getProducts({ category: selectedCategory, search });
             setProducts(data);
         } catch (error) {
             console.error("Error fetching product:", error);
-        }finally {
+        } finally {
             setLoading(false);
         }
     };
 
     const fetchCategories = async () => {
-        try{
+        try {
             const data = await getCategories();
             setCategories(data);
-        } catch (error){
+        } catch (error) {
             console.error("Error fetching categories:", error);
         }
     };
 
-    //Ejecuta la busqueda
-    const handleSearch = () => {
-        setSearch(searchInput);
-    };
+    const handleSearch = () => setSearch(searchInput);
 
-
-    //Limpia los filtros
     const handleClearFilters = () => {
         setSelectedCategory("");
         setSearch("");
@@ -77,42 +50,6 @@ function Store() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-
-            {/* ── Navbar de la tienda ── */}
-            <nav className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-40">
-                <h1 className="text-xl font-bold tracking-tight">Store</h1>
-
-                <div className="flex items-center gap-3">
-                    {/* Botón órdenes */}
-                    <button
-                        onClick={() => navigate("/orders")}
-                        className="text-sm text-gray-500 hover:text-black transition"
-                    >
-                        My Orders
-                    </button>
-
-                    <button
-                    onClick={() => navigate("/admin")}
-                    className="text-sm text-gray-500 hover:text-black transition"
-                    >
-                        ← Admin
-                    </button>
-
-                    {/* Botón carrito */}
-                    <button
-                        onClick={openCart}
-                        className="relative flex items-center gap-2 bg-black text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-gray-800 transition"
-                    >
-                        🛒 Cart
-                        {cart.item_count > 0 && (
-                            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                                {cart.item_count}
-                            </span>
-                        )}
-                    </button>
-                </div>
-            </nav>
-
             <div className="max-w-7xl mx-auto px-6 py-8">
 
                 {/* ── Barra de búsqueda ── */}
@@ -135,8 +72,6 @@ function Store() {
 
                 {/* ── Filtros de categoría ── */}
                 <div className="flex gap-2 flex-wrap mb-8">
-
-                    {/* Botón para mostrar todos */}
                     <button
                         onClick={() => setSelectedCategory("")}
                         className={`px-4 py-1.5 rounded-full text-sm font-medium border transition
@@ -147,8 +82,6 @@ function Store() {
                     >
                         All
                     </button>
-
-                    {/* Botón por cada categoría */}
                     {categories.map((cat) => (
                         <button
                             key={cat.id}
@@ -162,8 +95,6 @@ function Store() {
                             {cat.name}
                         </button>
                     ))}
-
-                    {/* Botón limpiar filtros — solo si hay alguno activo */}
                     {(selectedCategory || search) && (
                         <button
                             onClick={handleClearFilters}
@@ -176,7 +107,6 @@ function Store() {
 
                 {/* ── Grid de productos ── */}
                 {loading ? (
-                    // Skeleton de carga
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {[...Array(8)].map((_, i) => (
                             <div key={i} className="bg-white rounded-2xl p-4 animate-pulse">
@@ -187,14 +117,12 @@ function Store() {
                         ))}
                     </div>
                 ) : products.length === 0 ? (
-                    // Sin resultados
                     <div className="text-center py-20 text-gray-400">
                         <p className="text-5xl mb-4">🔍</p>
                         <p className="text-lg font-medium">No products found</p>
                         <p className="text-sm mt-1">Try a different search or category</p>
                     </div>
                 ) : (
-                    // Lista de productos
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {products.map((product) => (
                             <ProductCart key={product.id} product={product} />
@@ -202,13 +130,8 @@ function Store() {
                     </div>
                 )}
             </div>
-
-            {/* ── Sidebar del carrito ── */}
-            <CartSidebar />
         </div>
     );
-
-
 }
 
 export default Store;

@@ -145,7 +145,7 @@ function RegisterUser() {
             {/* Imagen */}
             <div className="hidden md:block md:w-1/2">
                 <img
-                    src="/images/house.jpg"
+                    src="/images/tem-rysh-F6-U5fGAOik-unsplash.jpg"
                     alt="house"
                     className="w-full h-full object-cover"
                 />
@@ -162,7 +162,7 @@ function RegisterUser() {
                     {/* Header */}
                     <div className="text-center">
                         <h1 className="text-3xl font-bold text-gray-800">
-                            Ease Lease
+                            Sho - ping
                         </h1>
 
                         <p className="text-gray-500 text-sm mt-2">

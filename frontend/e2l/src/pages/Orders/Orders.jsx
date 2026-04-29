@@ -35,24 +35,6 @@ function Orders(){
 
     return (
         <div className="min-h-screen bg-gray-50">
-
-            {/* ── Navbar ── */}
-            <nav className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-40">
-                <h1 className="text-xl font-bold">My Orders</h1>
-                <button
-                    onClick={() => navigate("/store")}
-                    className="text-sm text-gray-500 hover:text-black transition"
-                >
-                    ← Back to Store
-                </button>
-                <button
-                    onClick={() => navigate("/admin")}
-                    className="text-sm text-gray-500 hover:text-black transition"
-                >
-                    ← Admin
-                </button>
-            </nav>
-
             <div className="max-w-4xl mx-auto px-6 py-8">
 
                 {loading ? (

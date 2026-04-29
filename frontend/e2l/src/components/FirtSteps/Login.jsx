@@ -92,7 +92,7 @@ function Login() {
 
             <div className="hidden md:block md:w-1/2">
                 <img
-                    src="images/login.jpg"
+                    src="images/clay-banks-XvS-uKUoUao-unsplash.jpg"
                     alt="login"
                     className="w-full h-full object-cover"
                 />
@@ -107,8 +107,8 @@ function Login() {
 
                     <div className="text-center">
                         <img
-                            src="images/e2llogin.jpg"
-                            alt="logo"
+                            src="images/shoping.jpg"
+                            alt="logooo"
                             className="mx-auto w-64 mb-4"
                         />
                         <p className="text-gray-500 text-sm">
@@ -145,14 +145,7 @@ function Login() {
                             {errors.password}
                         </p>
                     )}
-                    <div className="text-right">
-                        <span
-                            onClick={() => navigate("/forgot-password")}
-                            className="text-sm text-gray-500 hover:underline cursor-pointer"
-                        >
-                            Forgot your password?
-                        </span>
-                    </div>
+                    
 
                     {errors.general && (
                         <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-2 rounded-lg">
@@ -184,16 +177,23 @@ function Login() {
                         </div>
                     )}
 
-                    <label className="flex items-center gap-2 text-sm text-gray-500">
-                        <input
-                            type="checkbox"
-                            checked={remember}
-                            onChange={(e) =>
-                                setRemember(e.target.checked)
-                            }
-                        />
-                        Remember me
-                    </label>
+                    <div className="flex items-center justify-between">
+                        <label className="flex items-center gap-2 text-sm text-gray-500 cursor-pointer">
+                            <input
+                                type="checkbox"
+                                checked={remember}
+                                onChange={(e) => setRemember(e.target.checked)}
+                            />
+                            Remember me
+                        </label>
+                        <button
+                            type="button"
+                            onClick={() => navigate("/forgot-password")}
+                            className="text-sm text-gray-500 hover:underline"
+                        >
+                            Forgot password?
+                        </button>
+                    </div>
 
                     <div className="flex gap-3">
 

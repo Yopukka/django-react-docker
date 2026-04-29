@@ -111,7 +111,7 @@ function IntroText() {
             {/* ── Imagen lateral ── */}
             <div className="hidden md:block flex-1">
                 <img
-                    src="/images/introtext.jpg"
+                    src="/images/open.jpg"
                     alt="intro"
                     className="w-full h-full object-cover"
                 />

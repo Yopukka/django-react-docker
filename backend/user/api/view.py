@@ -21,6 +21,7 @@ from django.conf import settings
 import secrets
 from django.db import transaction
 from django.conf import settings
+from user.emails import verification_email_html, reset_password_email_html
 
 class UserViewSet(viewsets.ModelViewSet):
 
@@ -151,14 +152,15 @@ class UserViewSet(viewsets.ModelViewSet):
             def send_email():
                 try:
                     send_mail(
-                        subject="Resend verification email",
-                        message=f"Verify your account:\n{verification_link}",
+                        subject="Verify your Sho - ping account",
+                        message=f"Verify your account: {verification_link}",
+                        html_message=verification_email_html(user.first_name, verification_link),
                         from_email=settings.DEFAULT_FROM_EMAIL,
                         recipient_list=[user.email],
                         fail_silently=False
                     )
                 except Exception as e:
-                    print("Resend eamil error:", e)
+                    print("Resend email error:", e)
 
             transaction.on_commit(send_email)
 
@@ -192,7 +194,8 @@ class EmailLoginView(APIView):
                 "id": user.id,
                 "email": user.email,
                 "first_name": user.first_name,
-                "notshow": user.notshow
+                "notshow": user.notshow,
+                "rol": user.rol_id
             }
         }, status=status.HTTP_200_OK)
 
@@ -227,14 +230,9 @@ class ForgotPasswordView(APIView):
                 def send_reset_email():
                     try:
                         send_mail(
-                            subject = "Reset Password",
-                            message = (
-                                f"Hi {user.first_name},\n\n"
-                                f"Yoou request to reset your password.\n"
-                                f"Click the link below (expired 30 minutes):\n\n"
-                                f"{reset_link}\n\n"
-                                f"If you dint reques this ignore this email."
-                            ),
+                            subject="Reset your Sho - ping password",
+                            message=f"Reset your password: {reset_link}",
+                            html_message=reset_password_email_html(user.first_name, reset_link),
                             from_email=settings.DEFAULT_FROM_EMAIL,
                             recipient_list=[user.email],
                             fail_silently=False
